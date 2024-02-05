@@ -54,7 +54,7 @@ print(df[df.isna().any(axis=1)].head(2).T)
 
 df.fillna({"City": "Missing"}, inplace=True)
 
-df.fillna({"Zip": "Missing"}, inplace=True)
+df.fillna({"Zip": 0}, inplace=True)
 
 df.fillna({"District": "Missing"}, inplace=True)
 
@@ -67,4 +67,41 @@ df.fillna({"Census": "Missing"}, inplace=True)
 print(df.isnull().sum())
 
 print(df.shape)
+
+# Boxplot
+sns.boxplot(x=df["Range"])
+plt.xlabel("Range")
+plt.show()
+
+sns.boxplot(x=df["Year"])
+plt.xlabel("Year")
+plt.show()
+
+sns.boxplot(x=df["MRSP"])
+plt.xlabel("MRSP")
+plt.show()
+
+df.Make.value_counts().nlargest(20).plot(kind="bar", figsize=(10, 6))
+plt.title("Count of EV Cars by Make")
+plt.xlabel("Car Makes")
+plt.ylabel("Counts")
+plt.show()
+
+# Heatmap
+plt.figure(figsize=(6, 6))
+c = df[["Zip", "Year", "Range", "MRSP"]].corr()
+sns.heatmap(c, cmap="BrBG", annot=True)
+plt.show()
+
+# Scatterplot
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(df['Year'], df["Range"])
+ax.set_xlabel('Year')
+ax.set_ylabel('Range')
+plt.show()
+
+
+
+
+
 
